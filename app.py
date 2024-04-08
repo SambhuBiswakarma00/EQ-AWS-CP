@@ -13,41 +13,41 @@ app = Flask(__name__)
 # RDS_DB_NAME = 'your_rds_db_name'
 
 # Initialize Boto3 DynamoDB client
-dynamodb = boto3.client('dynamodb')
+# dynamodb = boto3.client('dynamodb')
 
 # Initialize RDS database connection
-db_conn = connections.Connection(
-    host=databasehost,
-    port=3306,
-    user=duser,
-    password=dpass,
-    db=s3database
-)
+# db_conn = connections.Connection(
+#     host=databasehost,
+#     port=3306,
+#     user=duser,
+#     password=dpass,
+#     db=s3database
+# )
 
-def query_employee_data(employee_id):
-    try:
-        # Connect to the RDS database
-        connection = connections.Connection(
-            host=databasehost,
-            port=3306,
-            user=duser,
-            password=dpass,
-            db=s3database,
-            cursorclass=connections.DictCursor
-        )
+# def query_employee_data(employee_id):
+#     try:
+#         # Connect to the RDS database
+#         connection = connections.Connection(
+#             host=databasehost,
+#             port=3306,
+#             user=duser,
+#             password=dpass,
+#             db=s3database,
+#             cursorclass=connections.DictCursor
+#         )
 
-        with connection.cursor() as cursor:
-            # Query the employee data using employee ID
-            sql = "SELECT * FROM intellipaattab WHERE id = %s"
-            cursor.execute(sql, (employee_id,))
-            employee_data = cursor.fetchone()
+#         with connection.cursor() as cursor:
+#             # Query the employee data using employee ID
+#             sql = "SELECT * FROM intellipaattab WHERE id = %s"
+#             cursor.execute(sql, (employee_id,))
+#             employee_data = cursor.fetchone()
 
-        return employee_data
+#         return employee_data
 
-    except Exception as e:
-        # Handle any errors
-        print(f"Error: {e}")
-        return None
+#     except Exception as e:
+#         # Handle any errors
+#         print(f"Error: {e}")
+#         return None
 
 @app.route("/", methods=['GET', 'POST'])
 def hello_world():
@@ -84,19 +84,19 @@ def hello_world():
         #     print(str(e))
         #     return str(e)
 
-        try:
-            # Upload user data to DynamoDB
-            dynamodb.put_item(
-                TableName=dynamoDB_table,
-                Item={
-                    'filename': {'S': file_name},
-                    'Uploaded By': {'S': name}
-                },
-                ConditionExpression='attribute_not_exists(filename)'
-            )
-            print("File uploaded to DynamoDB successfully !")
-        except Exception as e:
-            return str(e)
+        # try:
+        #     # Upload user data to DynamoDB
+        #     dynamodb.put_item(
+        #         TableName=dynamoDB_table,
+        #         Item={
+        #             'filename': {'S': file_name},
+        #             'Uploaded By': {'S': name}
+        #         },
+        #         ConditionExpression='attribute_not_exists(filename)'
+        #     )
+        #     print("File uploaded to DynamoDB successfully !")
+        # except Exception as e:
+        #     return str(e)
 
     return render_template("index.html")
 
