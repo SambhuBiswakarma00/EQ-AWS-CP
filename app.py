@@ -13,7 +13,7 @@ app = Flask(__name__)
 # RDS_DB_NAME = 'your_rds_db_name'
 
 # Initialize Boto3 DynamoDB client
-dynamodb = boto3.client('dynamodb')
+dynamodb = boto3.client('dynamodb', region_name='us-east-1')
 
 # Initialize RDS database connection
 db_conn = connections.Connection(
@@ -76,7 +76,7 @@ def hello_world():
         try:
             # Upload data to RDS
             cursor = db_conn.cursor()
-            insert_sql = "INSERT INTO intellipaattable VALUES (%s,%s,%s,%s)"
+            insert_sql = "INSERT INTO intellipaattable (Name, location, Age, Technology) VALUES (%s,%s,%s,%s)"
             cursor.execute(insert_sql, (name, location, age, technology))
             db_conn.commit()
             print("Data uploaded to RDS successfully !")

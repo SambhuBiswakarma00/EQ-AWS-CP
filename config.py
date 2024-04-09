@@ -1,5 +1,5 @@
 custombucket = "sambhubucket"
-table = "intellipaattab"
+table = "intellipaattable"
 key_id = " "
 access_key = ""
 databasehost = "database-1.cs3r6mwhqazo.us-east-1.rds.amazonaws.com"
