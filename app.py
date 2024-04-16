@@ -68,7 +68,7 @@ def hello_world():
         file_name = "file-id-" + str(count_obj + 1)
 
         try:
-            s3.Bucket(custombucket).put_object(Key=file_name, Body=file_body)
+            s3.Bucket(custombucket).put_object(Key=file_name, Body=file_body, ContentType=file_body.content_type)
             print("File uploaded to S3 successfully !")
         except Exception as e:
             return str(e)
